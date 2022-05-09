@@ -2,45 +2,38 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  padding: 15px;
+  position: sticky;
+  background: #181A23;
+  color: #DCDEE6;
+  font-size: 30px;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+body {
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #282B3A;
   color: white;
+}
+
+input[type=text] {
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .App-link {
   color: #61dafb;
 }
-.container
-{
-  border: solid 1px;
+
+.container {
+
   padding: 100px;
-  width: 450px;
-  height: 500px;
+
 }
-body
-{
-  padding-left: 200px;
-  padding-top: 50px;
-  background-color: #282c34;
-  color: white;
-}
+
 
 /* 
 Reference: https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l */
@@ -51,26 +44,62 @@ Reference: https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l *
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
+  background-color: #1F212D;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
- 
+
+thead {
+  background-color: #303447;
+
+}
+
+.styled-table tr:nth-child(odd) {
+  background-color: #424760;
+  color: #fff;
+}
+
+.information-table {
+
+  width: 1250px;
+  margin: 20px;
+  padding-left: 40px;
+  padding-bottom: 30px;
+  padding-top: 40px;
+
+}
+
+.table {
+  margin: 100px;
+}
+
+.graph {
+  border-collapse: collapse;
+  margin: 25px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
 .styled-table thead tr {
   background-color: #303447;
   color: #ffffff;
   text-align: left;
   font-size: large;
 }
- 
+
 .styled-table td {
-    padding: 12px 15px;
-   
+  padding: 12px 15px;
+
 }
 
- 
+.table-graph {
+  display: grid;
+  grid-template-columns: 50% 50%
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
