@@ -1,6 +1,34 @@
 .App {
   text-align: center;
 }
+.line-chart
+{
+  
+  margin-top: 25px;
+  padding: 20px;
+  border: solid 2px #898D90;
+  width: 500px;
+}
+button
+{
+  background: none;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  color: #DCDEE6;
+  font-size: large;
+}
+button:hover
+{
+  background-color:#282B3F; ;
+}
+button:active
+{
+  background-color: #0D0E13;
+  
+}
+
 
 .header {
   padding: 15px;
