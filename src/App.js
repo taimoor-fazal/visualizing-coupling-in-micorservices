@@ -42,6 +42,11 @@ function App() {
       <div className='header'>
         <h3>Measuring Coupling in Microservices</h3>
       </div>
+      <ul className='navigation-bar'>
+        <li><a>System Analysis</a></li>
+        <li><a>Proposed Metrics</a></li>
+
+      </ul>
       <div className='container'>
 
         <Output setShowData={setShowData} />
@@ -181,7 +186,7 @@ function CouplingEvolution() {
         <td>{item.gini}</td>
       </tr>
     )}</table></div>
-    <h1>Evolution Graph</h1>
+    <h1>Coupling Evolution Graph</h1>
 
     <EvolutionGraph data={couplingEvolution} />
   </div>)
