@@ -31,8 +31,8 @@ function getRootId(json) {
 
 function App() {
 
-  const [showData, setShowData] = useState(false);
-
+  const [showData, setShowData] = useState(true);
+   
 
   return (
 
@@ -43,25 +43,216 @@ function App() {
         <h3>Measuring Coupling in Microservices</h3>
       </div>
       <ul className='navigation-bar'>
-        <li><a>System Analysis</a></li>
-        <li><a>Proposed Metrics</a></li>
+        <li><a onClick={()=>setShowData(true)}>System Analysis</a></li>
+        <li><a onClick={()=>setShowData(false)}>Proposed Metrics</a></li>
 
       </ul>
       <div className='container'>
 
-        <Output setShowData={setShowData} />
+       {showData && 
+
+        <><Output setShowData={setShowData} />
         <h1>Microservice Level Details</h1>
         <SystemInformation />
         <h1>Coupling Evolution</h1>
-        <CouplingEvolution />
-
+        <CouplingEvolution /></> }
+          {!showData&& <ProposedMetrics/>}
       </div>
+ 
 
 
     </>
   );
 }
 
+
+function ProposedMetrics()
+{
+  return (
+  <>
+    <h1>Proposed Metrics</h1>
+    <div className="proposed-metrics">   
+    <div className="table">   
+  <h2> SCF Indicator</h2>
+  <table className='styled-table' id="outputTable">
+    <thead><td><h3>Label</h3></td><td><h3>Value</h3></td></thead>
+    <tr><td>GREEN</td><td>0 - 0.05</td></tr>
+    <tr><td>YELLOW</td><td>0.06 - 0.10</td></tr>
+    <tr><td>RED</td><td>0.10 - 1.00</td></tr>
+    
+  </table>
+  </div>
+  <div className="table">   
+  <h2> ADSA Threshold</h2>
+  <table className='styled-table' id="outputTable">
+    <thead><td><h3>Label</h3></td><td><h3>Value</h3></td></thead>
+    <tr><td>1</td><td>0 - 0.5</td></tr>
+    <tr><td>2</td><td>0.51 - 1.0</td></tr>
+    <tr><td>3</td><td>{"> 1.00"}</td></tr>
+    
+  </table>
+  </div>
+
+  <div className="table">   
+  <h2> Gini ADS</h2>
+  <table className='styled-table' id="outputTable">
+    <thead><td><h3>Label</h3></td><td><h3>Value</h3></td></thead>
+    <tr><td>1</td><td>0 - 0.30</td></tr>
+    <tr><td>2</td><td>0.31 - 0.60</td></tr>
+    <tr><td>3</td><td>0.61 - 1.00</td></tr>
+    
+  </table>
+  </div>
+  </div>
+  {/* End of grid */}
+
+  <div className="table">   
+  <h2> Result Matrix</h2>
+  <table className='styled-table' id="outputTable">
+    <thead>
+    <td><h3>Size</h3></td>
+    <td><h3>SCF</h3></td>
+    <td><h3>ADSA</h3></td>
+    <td><h3>Gini ADSA</h3></td>
+    <td><h3>Result</h3></td>
+    </thead>
+
+    <tr>
+      <td>Small</td>
+      <td>Red</td>
+      <td>2,3</td>
+      <td></td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Small</td>
+      <td>Red</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Some part is potentially Tightly Coupled</td>
+    </tr>
+
+    
+    
+    <tr>
+      <td>Small</td>
+      <td>Red</td>
+      <td>1</td>
+      <td>1,2</td>
+      <td>Not Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Small</td>
+      <td>Red</td>
+      <td>2,3</td>
+      <td>-</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+    
+
+
+    <tr>
+      <td>Small</td>
+      <td>Yellow</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Some part is potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Small</td>
+      <td>Yellow</td>
+      <td>1</td>
+      <td>1,2</td>
+      <td>Not Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Small</td>
+      <td>Green</td>
+      <td>-</td>
+      <td>-</td>
+      <td>Not Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Red</td>
+      <td>-</td>
+      <td>-</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Yellow</td>
+      <td>3</td>
+      <td>-</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Yellow</td>
+      <td>2</td>
+      <td>1,2</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Yellow</td>
+      <td>2</td>
+      <td>3</td>
+      <td>Some part is Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Green</td>
+      <td>3</td>
+      <td>-</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Green</td>
+      <td>2</td>
+      <td>3</td>
+      <td>Some part is Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Green</td>
+      <td>2</td>
+      <td>2,1</td>
+      <td>Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Green</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Some part is Potentially Tightly Coupled</td>
+    </tr>
+
+    <tr>
+      <td>Large</td>
+      <td>Green</td>
+      <td>1</td>
+      <td>1,2</td>
+      <td>Not Coupled</td>
+    </tr>
+
+  </table>
+  </div>
+</>)
+}
 function Output(props) {
   return (<>
     <div className='table-graph'>
@@ -86,7 +277,9 @@ function Graph() {
       <div className='graph'>
         <ForceGraph3D
           graphData={microservicesData}
-
+           
+          linkWidth={link => link.communication==="async" ? 0 : 1}
+         
           width={650}
           height={450}
           minZoom={zoom}
@@ -244,7 +437,22 @@ function transformedData() {
     edgeObject = {};
     edgeObject.source = edge.data.source;
     edgeObject.target = edge.data.target;
+    // edgeObject.color="red"
+    edgeObject.name= getServiceNameById(edge.data.source)+" -> "+getServiceNameById(edge.data.target);
+   
+    //assuming if its http then its sync otherwise async
+    if(edge.data.traffic.protocol==="http")
+    edgeObject.communication="sync";
+    else
+    edgeObject.communication="async";
 
+    //another assumption based on existing data set if its shared resource factor
+    if(edge.data.traffic.responses)
+    {
+      edgeObject.color="orange";
+    }
+    
+    
     links.push(edgeObject);
   }
   for (let node of dependencyGraph.elements.nodes) {
@@ -307,13 +515,11 @@ function makeCalculations(json = null) {
 
 }
 
-
-
-
-
 function getServiceNameById(id) {
-  var json = JSON.parse(document.getElementById("jsonPacket").value);
-  return json.elements.nodes.find(x => x["data"]["id"] === id)["data"]["service"];
+  var json = (jsonGraph);
+  var name=json.elements.nodes.find(x => x["data"]["id"] === id)["data"]["service"];
+
+  return name? name: "Root" ;
 }
 function setPathsValue(value) {
   let textbox = document.getElementById("graphPacket");

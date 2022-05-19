@@ -1,6 +1,16 @@
 .App {
   text-align: center;
 }
+.proposed-metrics
+{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  row-gap: 0;
+}
+.proposed-metrics table
+{
+  margin: 0;
+}
 
 ul {
   list-style-type: none;
@@ -20,6 +30,7 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-weight: bold;
 }
 
 /* Change the link color to #111 (black) on hover */
