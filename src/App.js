@@ -1,6 +1,7 @@
 
 import './App.css';
-import jsonGraph from './dependency graphs/1.6.2.json';
+import jsonGraph from './dependency graphs/1.7.8.json';
+//import jsonGraph from './akva/iteration2.json'
 import systemEvolution from './release data/system-evolution.json'
 import ForceGraph3D from 'react-force-graph-3d';
 import { useState } from 'react';
@@ -11,13 +12,14 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid
 } from 'recharts';
 
 
 
 const dependencyGraph = jsonGraph;
 let microservicesData = transformedData();
+//const rootMicroserviceId = "1"
+
 const rootMicroserviceId = microservicesData.nodes.find(x => x.name === "Root").id;
 
 
@@ -40,7 +42,7 @@ function App() {
 
     <>
       <div className='header'>
-        <h3>Measuring Coupling in Microservices</h3>
+        <h3>Coupling Monitor</h3>
       </div>
       <ul className='navigation-bar'>
         <li><a onClick={()=>setShowData(true)}>System Analysis</a></li>
@@ -269,7 +271,7 @@ function Graph() {
 
   microservicesData = [];
   microservicesData = transformedData();
-
+  debugger;
   const [zoom, setZoom] = useState(5);
   return (
     <div>
@@ -278,18 +280,22 @@ function Graph() {
         <ForceGraph3D
           graphData={microservicesData}
            
-          linkWidth={link => link.communication==="async" ? 0 : 1}
-         
+          //type of communication
+          linkWidth={link => link.communication==="async" ? 0 : 1.5}
+          linkDirectionalArrowResolution={5}
+          // nodeResolution={1}
+          // nodeOpacity={5}
           width={650}
           height={450}
           minZoom={zoom}
           maxZoom={50}
 
-
+          
           backgroundColor={"#424760"}
           linkDirectionalArrowLength={3.5}
           linkDirectionalArrowRelPos={1}
           linkCurvature={0.2}
+          
 
         />
         <button onClick={() => setZoom(zoom + 1)}>Refresh</button>
@@ -314,9 +320,10 @@ function Table() {
       <thead><td><h3>Metrics</h3></td><td><h3>Value</h3></td></thead>
       <tr><td>Total Microservices</td><td>{metrics.services}</td></tr>
       <tr><td>Number of Connections</td><td>{metrics.edges}</td></tr>
-      <tr><td>SCF</td><td>{metrics.SCF}</td></tr>
+      <tr><td>Service Connectivity Factor (SCF)</td><td>{metrics.SCF}</td></tr>
+      <tr><td>Shared Resource Factor</td><td>{0.0}</td></tr>
       <tr><td>ADSA</td><td>{metrics.ADSA}</td></tr>
-      <tr><td>Gini</td><td>{metrics.gini}</td></tr>
+      <tr><td>Gini ADS</td><td>{metrics.gini}</td></tr>
     </table>
   </div> </div>)
 }
@@ -387,7 +394,7 @@ function CouplingEvolution() {
 
 //Reference: https://www.geeksforgeeks.org/create-a-line-chart-using-recharts-in-reactjs/
 function EvolutionGraph(props) {
-  debugger;
+  
   return (<div>
     <LineChartComponent data={props.data} dataKey={"ADSA"} color={"#10C169"} />
     <LineChartComponent data={props.data} dataKey={"gini"} color={"#F6C800"} />
@@ -430,7 +437,7 @@ function transformedData() {
   let edgeObject;
   const obj = makeCalculations();
 
-
+  
 
 
   for (let edge of dependencyGraph.elements.edges) {
@@ -446,15 +453,22 @@ function transformedData() {
     else
     edgeObject.communication="async";
 
+
+
     //another assumption based on existing data set if its shared resource factor
-    if(edge.data.traffic.responses)
-    {
-      edgeObject.color="orange";
-    }
+    // if(edge.data.traffic.responses)
+    // {
+    //   edgeObject.color="white";
+    // }
+    // else
+    // {
+    //   edgeObject.color="green";
+    // }
     
     
     links.push(edgeObject);
   }
+
   for (let node of dependencyGraph.elements.nodes) {
     nodeObject = {};
     //the API gateway service has no name. So we need to avoid that
@@ -467,6 +481,23 @@ function transformedData() {
 
     nodeObject.id = node.data.id;
     nodeObject.ads = links.filter(x => x.source === node.data.id).length;
+
+   //checking shared resource factor
+    if(node.srf===true)
+    {
+      nodeObject.srf=true;
+     
+
+    }
+    else
+    {
+      nodeObject.srf=false;
+       
+
+    }
+    nodeObject.nodeResolution=1.5;
+    
+
     if (nodeObject.ads >= parseInt(obj.ADSA)) {
       nodeObject.color = "red"
     }
@@ -503,7 +534,9 @@ function makeCalculations(json = null) {
   if (!json)
     json = dependencyGraph;
 
-  const edges = json.elements.edges.filter(x => x["data"]["source"] !== undefined && x["data"]["source"] !== getRootId(json.elements)).length;
+  //const edges = json.elements.edges.filter(x => x["data"]["source"] !== undefined && x["data"]["source"] !== getRootId(json.elements)).length;
+  const edges = json.elements.edges.filter(x => x["data"]["source"] !== undefined).length;
+  
   const services = json.elements.nodes.filter(x => x["data"]["service"] !== undefined).length;
   const SCF = (edges / ((services * services) - services)).toFixed(2);
   const ADSA = (edges / services).toFixed(2);
@@ -516,6 +549,8 @@ function makeCalculations(json = null) {
 }
 
 function getServiceNameById(id) {
+  
+   
   var json = (jsonGraph);
   var name=json.elements.nodes.find(x => x["data"]["id"] === id)["data"]["service"];
 

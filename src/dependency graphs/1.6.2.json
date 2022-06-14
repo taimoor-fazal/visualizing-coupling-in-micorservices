@@ -47,6 +47,7 @@
             "id": "24e8e3722fc105ea5ed53f7fefd491bf",
             "nodeType": "service",
             "namespace": "spinnaker",
+            "srf":true,
             "app": "spin",
             "service": "spin-echo",
             "destServices": [
@@ -73,6 +74,7 @@
             "namespace": "spinnaker",
             "app": "spin",
             "service": "spin-fiat",
+            "srf":true,
             "destServices": [
               {
                 "namespace": "spinnaker",
@@ -339,6 +341,7 @@
             "workload": "unknown",
             "app": "unknown",
             "version": "latest",
+            "srf":true,
             "traffic": [
               {
                 "protocol": "http",

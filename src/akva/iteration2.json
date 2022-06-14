@@ -1,0 +1,162 @@
+{
+    
+    "elements": {
+      "nodes": [
+        {
+          "data": {
+            "id": "1",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S1",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-clouddriver"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "tcp",
+                "rates": {
+                  "tcpOut": "85927.71"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "2",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S2",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-deck"
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "3",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S3",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-echo"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.03",
+                  "httpOut": "0.10"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "4",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S4",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-fiat"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.05",
+                  "httpOut": "0.01"
+                }
+              },
+              {
+                "protocol": "tcp",
+                "rates": {
+                  "tcpOut": "174.82"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "5",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S5",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-front50"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.38",
+                  "httpOut": "0.03"
+                }
+              },
+              {
+                "protocol": "tcp",
+                "rates": {
+                  "tcpOut": "981.67"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "6",
+            "nodeType": "service",
+            "namespace": "spinnaker",
+            "app": "spin",
+            "service": "S6",
+            "destServices": [
+              {
+                "namespace": "spinnaker",
+                "name": "spin-gate"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.59",
+                  "httpIn4xx": "0.003",
+                  "httpIn5xx": "0.10",
+                  "httpOut": "1.25"
+                }
+              },
+              {
+                "protocol": "tcp",
+                "rates": {
+                  "tcpOut": "2343.52"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "edges": []
+    }
+  }
